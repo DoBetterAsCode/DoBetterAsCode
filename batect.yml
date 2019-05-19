@@ -1,0 +1,61 @@
+project_name: dobetterascode
+containers:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - 4572:4572
+      - 8080:8080
+    environment:
+      SERVICES: s3
+      DOCKER_HOST: unix:///var/run/docker.sock
+      DEBUG: "1"
+      PORT_WEB_UI: "8080"
+    volumes:
+      - /tmp/localstack:/tmp/localstack
+  terraform:
+    build_directory: .batect/awspec
+    volumes:
+      - ./:/code
+    working_directory: /code
+    environment:
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      # TF_LOG: 1
+tasks:
+  localstack-start:
+    description: Start localstack
+    group: localstack
+    run:
+      container: localstack
+      command: localstack start
+  terraform-local-apply:
+    description: Apply Terraform project with mock backend (localstack)
+    group: terraform
+    dependencies:
+      - localstack
+    run:
+      container: terraform
+      command: /code/infra/modules/test/run.sh
+      environment:
+        TF_VAR_env: test
+        TERRAFORM_DIR: /code/infra/modules/test
+  terraform-lower-test:
+    description: Apply Terraform test project
+    group: terraform
+    run:
+      container: terraform
+      command: /code/infra/modules/test/run.sh
+      working_directory: /code/infra/modules/test
+      environment:
+        TF_VAR_env: test
+        TERRAFORM_DIR: /code/infra/modules/test
+  terraform-apply:
+    description: Apply Terraform project
+    group: terraform
+    run:
+      container: terraform
+      command: /code/infra/run.sh
+      working_directory: /code/project
+      environment:
+        TF_VAR_env: ${ENVIRONMENT:-dev}
+        TERRAFORM_DIR: /code/infra/project

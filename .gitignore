@@ -1,0 +1,7 @@
+.terraform
+terraform.tfstate
+terraform.tfstate.*
+
+.kitchen
+
+secrets.yml

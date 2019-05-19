@@ -1,0 +1,18 @@
+---
+driver:
+  name: terraform
+
+provisioner:
+  name: terraform
+
+platforms:
+  - name: aws
+
+verifier:
+  name: awspec
+
+suites:
+- name: base
+  verifier:
+    patterns:
+    - ./spec/*spec.rb
