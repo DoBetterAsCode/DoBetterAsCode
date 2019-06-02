@@ -22,6 +22,14 @@ containers:
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
       TF_OPERATION: ${TF_OPERATION:-apply}
       # TF_LOG: 1
+  aws-cli:
+    build_directory: .batect/aws
+    volumes:
+      - ./:/code
+    working_directory: /code
+    environment:
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY    
 tasks:
   localstack-start:
     description: Start localstack
@@ -31,7 +39,7 @@ tasks:
       command: localstack start
   terraform-local-apply:
     description: Apply Terraform project with mock backend (localstack)
-    group: terraform
+    group: terraform-test-low
     dependencies:
       - localstack
     run:
@@ -42,7 +50,7 @@ tasks:
         TERRAFORM_DIR: /code/infra/modules/low-test
   terraform-medium-test:
     description: Apply Terraform test project
-    group: terraform
+    group: terraform-test-medium
     run:
       container: infra
       command: /code/infra/modules/medium-test/run-awspec.sh
@@ -73,7 +81,7 @@ tasks:
         TF_OPERATION: destroy
   terraform-tflint:
     description: Run TFLint
-    group: terraform
+    group: terraform-test-low
     run:
       container: infra
       command: /code/infra/modules/low-test/run-tflint.sh
@@ -81,3 +89,23 @@ tasks:
       environment:
         TF_VAR_env: test
         TERRAFORM_DIR: /code/infra/modules/low-test
+  terraform-low-test:
+    description: Run low tests
+    group: terraform-test-low
+    prerequisites:
+      - terraform-tflint
+      - terraform-local-apply
+    run:
+      container: infra
+      command: echo "Done"
+  app-deploy:
+    description: Deploy app
+    group: app
+    run:
+      container: aws-cli
+      command: /code/app/deploy.sh
+      working_directory: /code/app
+      environment:
+        ENVIRONMENT: ${ENVIRONMENT:-dev}
+
+        

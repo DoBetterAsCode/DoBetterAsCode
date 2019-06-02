@@ -12,7 +12,17 @@ verifier:
   name: awspec
 
 suites:
-- name: base
+- name: bucket
+  driver:
+    name: terraform
+    root_module_directory: terraform/bucket
   verifier:
     patterns:
-    - ./spec/*spec.rb
+    - ./spec/bucket_spec.rb
+- name: zone
+  driver:
+    name: terraform
+    root_module_directory: terraform/zone
+  verifier:
+    patterns:
+    - ./spec/zone_spec.rb
