@@ -12,7 +12,7 @@ containers:
       PORT_WEB_UI: "8080"
     volumes:
       - /tmp/localstack:/tmp/localstack
-  terraform:
+  infra:
     build_directory: .batect/infra
     volumes:
       - ./:/code
@@ -36,20 +36,20 @@ tasks:
       - localstack
     run:
       container: infra
-      command: /code/infra/modules/test/run-localstack.sh
+      command: /code/infra/modules/low-test/run-localstack.sh
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/test
-  terraform-lower-test:
+        TERRAFORM_DIR: /code/infra/modules/low-test
+  terraform-medium-test:
     description: Apply Terraform test project
     group: terraform
     run:
       container: infra
-      command: /code/infra/modules/test/run-awspec.sh
-      working_directory: /code/infra/modules/test
+      command: /code/infra/modules/medium-test/run-awspec.sh
+      working_directory: /code/infra/modules/medium-test
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/test
+        TERRAFORM_DIR: /code/infra/modules/medium-test
   terraform-apply:
     description: Apply Terraform project
     group: terraform
@@ -76,8 +76,8 @@ tasks:
     group: terraform
     run:
       container: infra
-      command: /code/infra/modules/test/run-tflint.sh
+      command: /code/infra/modules/low-test/run-tflint.sh
       working_directory: /code/infra/modules
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/test
+        TERRAFORM_DIR: /code/infra/modules/low-test

@@ -6,12 +6,9 @@ provider "aws" {
   skip_metadata_api_check     = true
   s3_force_path_style         = true
   skip_requesting_account_id = true
+  region = "ap-southeast-2"
+
   endpoints {
     s3     = "http://localstack:4572"
   }
-  region = "ap-southeast-2"
-}
-
-module "bucket" {
-  bucket_name = "${local.project_name}-localstack"
 }
