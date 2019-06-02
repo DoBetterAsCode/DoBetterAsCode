@@ -1,7 +1,6 @@
-output "id" {
-  value = "${aws_route53_zone.zone.zone_id}"
-}
-
 output "name" {
-  value = "${aws_route53_zone.zone.name}"
+  value = "${aws_acm_certificate.certificate.domain_name}"
+}
+output "arn" {
+  value = "${aws_acm_certificate.certificate.arn}"
 }

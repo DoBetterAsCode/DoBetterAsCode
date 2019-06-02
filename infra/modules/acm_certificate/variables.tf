@@ -1,11 +1,14 @@
-variable "zone_domain" {
-  description = "The domain name for the Route53 zone"
+variable "domain" {
+  description = "The FQDN for the certificate"
   type        = "string"
 }
 
-variable "records" {
-  description = "Records for the zone"
-  type = "map"
-  
-  default = {}
+variable "zone_id" {
+  description = "The Route53 zone ID for certificate validation"
+  type        = "string"
+}
+
+variable "skip_validation" {
+  type = "string"
+  default = ""
 }
