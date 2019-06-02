@@ -13,13 +13,14 @@ containers:
     volumes:
       - /tmp/localstack:/tmp/localstack
   terraform:
-    build_directory: .batect/awspec
+    build_directory: .batect/infra
     volumes:
       - ./:/code
     working_directory: /code
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      TF_OPERATION: ${TF_OPERATION:-apply}
       # TF_LOG: 1
 tasks:
   localstack-start:
@@ -34,8 +35,8 @@ tasks:
     dependencies:
       - localstack
     run:
-      container: terraform
-      command: /code/infra/modules/test/run.sh
+      container: infra
+      command: /code/infra/modules/test/run-localstack.sh
       environment:
         TF_VAR_env: test
         TERRAFORM_DIR: /code/infra/modules/test
@@ -43,8 +44,8 @@ tasks:
     description: Apply Terraform test project
     group: terraform
     run:
-      container: terraform
-      command: /code/infra/modules/test/run.sh
+      container: infra
+      command: /code/infra/modules/test/run-awspec.sh
       working_directory: /code/infra/modules/test
       environment:
         TF_VAR_env: test
@@ -53,9 +54,30 @@ tasks:
     description: Apply Terraform project
     group: terraform
     run:
-      container: terraform
+      container: infra
       command: /code/infra/run.sh
       working_directory: /code/project
       environment:
         TF_VAR_env: ${ENVIRONMENT:-dev}
         TERRAFORM_DIR: /code/infra/project
+  terraform-destroy:
+    description: Destroy Terraform project
+    group: terraform
+    run:
+      container: infra
+      command: /code/infra/run.sh
+      working_directory: /code/project
+      environment:
+        TF_VAR_env: ${ENVIRONMENT:-dev}
+        TERRAFORM_DIR: /code/infra/project
+        TF_OPERATION: destroy
+  terraform-tflint:
+    description: Run TFLint
+    group: terraform
+    run:
+      container: infra
+      command: /code/infra/modules/test/run-tflint.sh
+      working_directory: /code/infra/modules
+      environment:
+        TF_VAR_env: test
+        TERRAFORM_DIR: /code/infra/modules/test

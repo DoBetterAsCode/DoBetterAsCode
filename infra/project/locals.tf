@@ -1,3 +1,3 @@
 locals {
-  project_name = "DoBetterAsCode"
+  project_name = "dobetterascode"
 }
