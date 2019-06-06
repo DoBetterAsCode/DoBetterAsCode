@@ -26,3 +26,17 @@ suites:
   verifier:
     patterns:
     - ./spec/zone_spec.rb
+- name: certificate
+  driver:
+    name: terraform
+    root_module_directory: terraform/certificate
+  verifier:
+    patterns:
+    - ./spec/certificate_spec.rb
+- name: distribution
+  driver:
+    name: terraform
+    root_module_directory: terraform/distribution
+  verifier:
+    patterns:
+    - ./spec/distribution_spec.rb
