@@ -9,7 +9,3 @@ echo "Applying Terraform project against Localstack"
 
 echo "Removing state"
 rm terraform.tfstate
-rm terraform.tfstate.backup
-
-echo "Removing overrides"
-rm localstack_override.tf
