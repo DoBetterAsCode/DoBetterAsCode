@@ -1,5 +1,5 @@
 provider "aws" {
-  version = "~> 1.6.0"
+  version = "~> 2.13.0"
   access_key = "er"
   secret_key = "sd"
   skip_credentials_validation = true
