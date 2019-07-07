@@ -1,4 +1,13 @@
 fileignoreconfig:
+- filename: app/content/feedback/index.html
+  checksum: 392cac2d11f009b6916ec3207b747e2af1f3b8777bf1775cd101f6784092d3da
+  ignore_detectors: []
+- filename: app/static/images/comingsoon.jpg
+  checksum: 55d25e51b6b826f69548c42bd94e121819ea8288511edebb6d4e8a792309b836
+  ignore_detectors: []
+- filename: app/themes/hugo-whisper-theme/static/images/terminal.gif
+  checksum: 63639b8f491e6ff1c82547c1c91bbc17bc9c4e33e2411fe2ac5590e43eb67c35
+  ignore_detectors: []
 - filename: batect.yml
-  checksum: 7c45547cdce8f86fadf51a2d1886c3feae3363bb2bf542ae72e833184847b375
+  checksum: 3738b72b041cd6161f7aad7a66dbc2850d273ee6d40bcd2b26152389e051258f
   ignore_detectors: []
