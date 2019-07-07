@@ -37,6 +37,7 @@ suites:
   driver:
     name: terraform
     root_module_directory: terraform/distribution
+    command_timeout: 1200
   verifier:
     patterns:
     - ./spec/distribution_spec.rb
