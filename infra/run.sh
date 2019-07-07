@@ -6,8 +6,10 @@ cd ${TERRAFORM_DIR} || exit
 echo "Creating .terraformrc in ${HOME}"
 echo "credentials \"app.terraform.io\" { token = \"${TF_TOKEN}\" }" > ~/.terraformrc
 
+export TF_WORKSPACE=$TF_VAR_env
+
 echo "Initialising Terraform"
-terraform init -input=false || true
+terraform init
 
 echo "Changing to Terraform workspace"
 terraform workspace select ${TF_VAR_env} || terraform workspace new ${TF_VAR_env}
