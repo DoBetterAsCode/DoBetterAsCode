@@ -1,0 +1,17 @@
+{{$currentNode := .}}
+<div class="docs-menu">
+  {{ range $taxonomyname, $taxonomy := .Site.Taxonomies }}
+  <div style="padding-bottom: 10px;">
+    <h4>{{ $taxonomyname | humanize }}</h4>
+    <ul>
+    {{ range $key, $value := $taxonomy }}
+    {{ if not (eq $key "all") }}
+      <li>
+        <a href="{{ "/" | relLangURL}}{{ $taxonomyname | urlize }}{{ "/" | relLangURL}}{{ $key | urlize }}">{{ $key  }}</a>
+      </li>
+    {{ end }}
+    {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+</div>

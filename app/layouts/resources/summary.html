@@ -1,0 +1,26 @@
+<div>
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">{{ .Title }}</h5>
+      {{ range .Params.types }}
+        <a href="/types/{{ . | urlize }}"><span class="badge badge-success">{{ . | urlize }}</span></a>
+      {{ end }}
+      {{ range .Params.levels }}
+        <a href="/levels/{{ . | urlize }}"><span class="badge badge-primary">{{ . | urlize }}</span></a>
+      {{ end }}
+      {{ range .Params.languages }}
+      <a href="/languages/{{ . | urlize }}"><span class="badge badge-secondary">{{ . | urlize }}</span></a>
+      {{ end }}
+      {{ range .Params.clouds }}
+      <a href="/clouds/{{ . | urlize }}"><span class="badge badge-info">{{ . | urlize }}</span></a>
+      {{ end }}
+      <h4 class="card-subtitle mb-2 text-muted">{{ .Description }}</h6>
+      <p class="card-text">{{ .Content }}</p>
+      {{ if .Params.links }}
+        {{ range .Params.links }}
+          <a href="{{ .url }}" target="_blank" class="button">{{ .name }}</a>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</div>

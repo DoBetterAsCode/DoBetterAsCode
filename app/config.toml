@@ -1,0 +1,51 @@
+languageCode = "en-us"
+title = "Do Better As Code"
+themesDir = "themes"
+theme = "hugo-whisper-theme"
+
+pygmentsCodeFences = true
+pygmentsCodefencesGuessSyntax = true
+pygmentsUseClasses = true
+
+[taxonomies]
+  type = "types"
+  language = "languages"
+  cloud = "clouds"
+  level = "levels"
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    name = "The Talk"
+    url = "/the-talk/"
+    weight = 2
+
+[[menu.main]]
+    name = "Resources"
+    url = "/resources/"
+    weight = 3
+
+[params]
+  google_analytics_id=""
+  homepage_button_link = '/resources'
+  homepage_button_text = 'Find out how'
+  homepage_intro = 'Doing Infrastructure as Code? You can do better'
+  homepage_image = '/images/comingsoon.jpg'
+
+  mainSections = ["resources", "docs"]
+
+  [params.homepage_meta_tags]
+    meta_description = "Doing Infrastructure as Code? You can do better"
+    meta_og_title = "Do Better As Code"
+    meta_og_type = "website"
+    meta_og_url = "https://dobetterascode.com"
+    meta_og_image = "https://dobetterascode.com/images/logo.png"
+    meta_og_description = "Doing Infrastructure as Code? You can do better"
+    meta_twitter_card = "summary"
+
+  [params.logo]
+      mobile = "/images/logo.png"
+      standard  = "/images/logo.png"
