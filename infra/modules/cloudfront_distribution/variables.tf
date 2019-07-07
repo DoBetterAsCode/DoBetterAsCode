@@ -1,3 +1,8 @@
+variable "wait_for_deployment" {
+  default = false
+}
+
+
 variable "bucket_name" {
   description = "The name of the bucket"
   type        = "string"

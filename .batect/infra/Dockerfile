@@ -15,4 +15,5 @@ RUN curl -L https://releases.hashicorp.com/terraform/${TF_VERSION}/terraform_${T
     apt-get remove -y zip && \
     rm -f terraform.zip
 
-RUN curl https://raw.githubusercontent.com/wata727/tflint/master/install_linux.sh | bash
+ENV TFLINT_VERSION 0.9.0
+RUN curl https://raw.githubusercontent.com/wata727/tflint/v${TFLINT_VERSION}/install_linux.sh | bash

@@ -1,11 +1,21 @@
 resource "aws_cloudfront_distribution" "distribution" {
 
-  wait_for_deployment = false
+  wait_for_deployment = "${var.wait_for_deployment}"
 
   origin {
     domain_name = "${var.bucket_domain}"
     origin_id   = "${var.bucket_name}"
+
+        custom_origin_config {
+      http_port              = "80"
+      https_port             = "443"
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
+
   }
+
+  
 
   enabled             = true
   is_ipv6_enabled     = true

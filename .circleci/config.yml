@@ -13,7 +13,7 @@ commands:
 
 jobs:
 
-  tflint:
+  tf-tflint:
     working_directory: ~/repo
     machine: true
     steps:
@@ -27,12 +27,12 @@ jobs:
       - batect:
           task: terraform-local-apply
 
-  tf-medium-test:
+  tf-unit-test:
     working_directory: ~/repo
     machine: true
     steps:
       - batect:
-          task: terraform-medium-test
+          task: terraform-unit-test
 
   tf-apply-dev:
     working_directory: ~/repo
@@ -43,7 +43,16 @@ jobs:
       - batect:
           task: terraform-apply
 
-  deploy-dev:
+  app-build-dev:
+    working_directory: ~/repo
+    machine: true
+    environment:
+      ENVIRONMENT: dev
+    steps:
+      - batect:
+          task: app-build
+
+  app-deploy-dev:
     working_directory: ~/repo
     machine: true
     environment:
@@ -61,7 +70,16 @@ jobs:
       - batect:
           task: terraform-apply
 
-  deploy-prod:
+  app-build-prod:
+    working_directory: ~/repo
+    machine: true
+    environment:
+      ENVIRONMENT: prod
+    steps:
+      - batect:
+          task: app-build
+
+  app-deploy-prod:
     working_directory: ~/repo
     machine: true
     environment:
@@ -72,23 +90,22 @@ jobs:
 
 workflows:
   version: 2
-  scan-build-test-deploy:
+  deploy:
     jobs:
-      - tflint
+      - tf-tflint
       - tf-local-apply
-      - tf-medium-test
+      - tf-unit-test
       - tf-apply-dev:
           requires:
-            - tflint
+            - tf-tflint
             - tf-local-apply
-            - tf-medium-test
-      - deploy-dev:
+      - app-deploy-dev:
           requires:
             - tf-apply-dev
       - unblock:
           type: approval
           requires:
-            - deploy-dev
+            - app-deploy-dev
           filters:
             branches:
               only: master
@@ -98,7 +115,7 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy-prod:
+      - app-deploy-prod:
           requires:
             - tf-apply-prod
           filters:

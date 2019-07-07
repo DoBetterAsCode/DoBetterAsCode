@@ -18,9 +18,11 @@ containers:
       - ./:/code
     working_directory: /code
     environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
       TF_TOKEN: ${TF_TOKEN:-}
       TF_OPERATION: ${TF_OPERATION:-apply}
-      # TF_LOG: 1
+      #TF_LOG: 1
   aws-cli:
     build_directory: .batect/aws
     volumes:
@@ -28,38 +30,47 @@ containers:
     working_directory: /code
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY    
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY   
+  hugo:
+    image: klakegg/hugo:0.55.6-ext
+    volumes:
+      - ./app:/code
+    working_directory: /code
 tasks:
-  localstack-start:
-    description: Start localstack
-    group: localstack
+  terraform-tflint:
+    description: Run TFLint
+    group: infra-lint
     run:
-      container: localstack
-      command: localstack start
+      container: infra
+      command: /code/infra/modules/tflint.sh
+      working_directory: /code/infra/modules
+      environment:
+        TF_VAR_env: test
+        TERRAFORM_DIR: /code/infra/modules
   terraform-local-apply:
     description: Apply Terraform project with mock backend (localstack)
-    group: terraform-test-low
+    group: infra-test
     dependencies:
       - localstack
     run:
       container: infra
-      command: /code/infra/modules/low-test/run-localstack.sh
+      command: /code/infra/modules/test-local/local-apply.sh
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/low-test
-  terraform-medium-test:
+        TERRAFORM_DIR: /code/infra/modules/test-local
+  terraform-unit-test:
     description: Apply Terraform test project
-    group: terraform-test-medium
+    group: infra-test
     run:
       container: infra
-      command: /code/infra/modules/medium-test/run-awspec.sh
-      working_directory: /code/infra/modules/medium-test
+      command: /code/infra/modules/unit-test/unit-test.sh
+      working_directory: /code/infra/modules/unit-test
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/medium-test
+        TERRAFORM_DIR: /code/infra/modules/unit-test
   terraform-apply:
     description: Apply Terraform project
-    group: terraform
+    group: infra
     run:
       container: infra
       command: /code/infra/run.sh
@@ -69,7 +80,7 @@ tasks:
         TERRAFORM_DIR: /code/infra/project
   terraform-destroy:
     description: Destroy Terraform project
-    group: terraform
+    group: infra
     run:
       container: infra
       command: /code/infra/run.sh
@@ -78,33 +89,27 @@ tasks:
         TF_VAR_env: ${ENVIRONMENT:-dev}
         TERRAFORM_DIR: /code/infra/project
         TF_OPERATION: destroy
-  terraform-tflint:
-    description: Run TFLint
-    group: terraform-test-low
+  app-serve:
+    description: Serve app locally
+    group: app
     run:
-      container: infra
-      command: /code/infra/modules/low-test/run-tflint.sh
-      working_directory: /code/infra/modules
-      environment:
-        TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/low-test
-  terraform-low-test:
-    description: Run low tests
-    group: terraform-test-low
-    prerequisites:
-      - terraform-tflint
-      - terraform-local-apply
+      container: hugo
+      command: server --bind 0.0.0.0 --disableFastRender
+      ports:
+        - 1313:1313
+  app-build:
+    description: Build app
+    group: app
     run:
-      container: infra
-      command: echo "Done"
+      container: hugo
   app-deploy:
     description: Deploy app
     group: app
+    prerequisites:
+      - app-build
     run:
       container: aws-cli
       command: /code/app/deploy.sh
       working_directory: /code/app
       environment:
         ENVIRONMENT: ${ENVIRONMENT:-dev}
-
-        

@@ -3,4 +3,5 @@ source 'https://rubygems.org/' do
   gem 'kitchen-terraform', '4.9.0'
   gem 'kitchen-verifier-awspec'
   gem 'pry'
+  gem 'rhcl'
 end

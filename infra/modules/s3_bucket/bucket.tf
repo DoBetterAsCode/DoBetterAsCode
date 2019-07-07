@@ -1,6 +1,9 @@
 resource "aws_s3_bucket" "bucket" {
   bucket = "${var.bucket_name}"
   acl    = "public-read"
+  website {
+      index_document = "index.html"
+  }
   policy = <<-POLICY
 {
   "Version": "2012-10-17",
@@ -15,4 +18,5 @@ resource "aws_s3_bucket" "bucket" {
   ]
 }
     POLICY
+
 }

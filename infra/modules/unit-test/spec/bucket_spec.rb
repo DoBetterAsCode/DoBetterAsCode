@@ -1,10 +1,14 @@
 require 'awspec'
 require 'aws-sdk'
 require 'json'
+require 'rhcl'
 
-outputs = eval(ENV['KITCHEN_KITCHEN_TERRAFORM_OUTPUT'])
+state_file = 'terraform/bucket/terraform.tfstate.d/kitchen-terraform-bucket-aws/terraform.tfstate'
+tf_state = JSON.parse(File.open(state_file).read)
 
-describe s3_bucket(outputs[:bucket_name][:value]), region: 'ap-southeast-2' do
+bucket_name = tf_state['modules'][0]['outputs']['bucket_name']['value']
+
+describe s3_bucket(bucket_name), region: 'ap-southeast-2' do
   it { should exist }
   it { should have_acl_grant(grantee: 'http://acs.amazonaws.com/groups/global/AllUsers', permission: 'READ') }
   it "should have public read policy for all objects" do
