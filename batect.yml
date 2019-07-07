@@ -35,6 +35,7 @@ containers:
     image: klakegg/hugo:0.55.6-ext
     volumes:
       - ./app:/code
+      - ./app/public:/target
     working_directory: /code
 tasks:
   terraform-tflint:
