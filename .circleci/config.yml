@@ -10,6 +10,7 @@ commands:
       - checkout
       - run:
           command: ./batect << parameters.task >>
+          no_output_timeout: 30m
 
 jobs:
 
