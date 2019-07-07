@@ -8,4 +8,4 @@ echo "Applying Terraform project against Localstack"
 /code/infra/run.sh
 
 echo "Removing state"
-rm terraform.tfstate
+rm -rf terraform.tfstate.d || true
