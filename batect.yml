@@ -74,7 +74,7 @@ tasks:
     run:
       container: infra
       command: /code/infra/run.sh
-      working_directory: /code/project
+      working_directory: /code/infra/project
       environment:
         TF_VAR_env: ${ENVIRONMENT:-dev}
         TERRAFORM_DIR: /code/infra/project
@@ -84,7 +84,7 @@ tasks:
     run:
       container: infra
       command: /code/infra/run.sh
-      working_directory: /code/project
+      working_directory: /code/infra/project
       environment:
         TF_VAR_env: ${ENVIRONMENT:-dev}
         TERRAFORM_DIR: /code/infra/project
