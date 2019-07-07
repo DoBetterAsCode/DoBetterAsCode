@@ -98,7 +98,6 @@ workflows:
       - tf-apply-dev:
           requires:
             - tf-tflint
-            - tf-local-apply
       - app-deploy-dev:
           requires:
             - tf-apply-dev
