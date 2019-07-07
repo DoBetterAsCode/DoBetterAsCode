@@ -10,6 +10,5 @@ distribution_domain = tf_state['modules'][0]['outputs']['distribution_domain']['
 
 describe cloudfront_distribution(distribution_domain), region: 'ap-southeast-2' do
   it { should exist }
-  it { should be_deployed }
 end
 

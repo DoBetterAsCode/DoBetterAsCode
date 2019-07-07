@@ -37,7 +37,6 @@ module "certificate" {
 
 module "distribution" {
   source = "../../../cloudfront_distribution"
-  wait_for_deployment = true
   domain = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
   bucket_name = "${module.bucket.name}"
   bucket_domain = "${module.bucket.domain}"
