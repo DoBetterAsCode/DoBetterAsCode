@@ -1,0 +1,43 @@
+---
+driver:
+  name: terraform
+
+provisioner:
+  name: terraform
+
+platforms:
+  - name: aws
+
+verifier:
+  name: awspec
+
+suites:
+  - name: bucket
+    driver:
+      name: terraform
+      root_module_directory: terraform/bucket
+    verifier:
+      patterns:
+        - ./spec/bucket_spec.rb
+  - name: zone
+    driver:
+      name: terraform
+      root_module_directory: terraform/zone
+    verifier:
+      patterns:
+        - ./spec/zone_spec.rb
+  - name: certificate
+    driver:
+      name: terraform
+      root_module_directory: terraform/certificate
+    verifier:
+      patterns:
+        - ./spec/certificate_spec.rb
+  - name: distribution
+    driver:
+      name: terraform
+      root_module_directory: terraform/distribution
+      command_timeout: 1200
+    verifier:
+      patterns:
+        - ./spec/distribution_spec.rb

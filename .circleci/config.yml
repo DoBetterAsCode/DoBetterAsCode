@@ -28,12 +28,12 @@ jobs:
       - batect:
           task: terraform-local-apply
 
-  tf-unit-test:
+  tf-integration-test:
     working_directory: ~/repo
     machine: true
     steps:
       - batect:
-          task: terraform-unit-test
+          task: terraform-integration-test
 
   tf-apply-dev:
     working_directory: ~/repo
@@ -95,7 +95,7 @@ workflows:
     jobs:
       - tf-tflint
       - tf-local-apply
-      - tf-unit-test
+      - tf-integration-test
       - tf-apply-dev:
           requires:
             - tf-tflint

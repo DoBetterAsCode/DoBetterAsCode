@@ -74,16 +74,16 @@ tasks:
       environment:
         TF_VAR_env: test
         TERRAFORM_DIR: /code/infra/modules/test-local
-  terraform-unit-test:
+  terraform-integration-test:
     description: Apply Terraform test project
     group: infra-test
     run:
       container: infra
-      command: /code/infra/modules/unit-test/unit-test.sh
-      working_directory: /code/infra/modules/unit-test
+      command: /code/infra/modules/integration-test/integration-test.sh
+      working_directory: /code/infra/modules/integration-test
       environment:
         TF_VAR_env: test
-        TERRAFORM_DIR: /code/infra/modules/unit-test
+        TERRAFORM_DIR: /code/infra/modules/integration-test
   terraform-apply:
     description: Apply Terraform project
     group: infra
