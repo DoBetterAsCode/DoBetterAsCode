@@ -9,5 +9,5 @@ fileignoreconfig:
   checksum: 63639b8f491e6ff1c82547c1c91bbc17bc9c4e33e2411fe2ac5590e43eb67c35
   ignore_detectors: []
 - filename: batect.yml
-  checksum: 720008e506bdc3a255a208efda2563a24f5b1b0c9c24ef60c1333f994b8db3f6
+  checksum: 7aba67c24660f85fb3b1bc8fbc21c4b4680fcc54bac54647da0e033b605dc046
   ignore_detectors: []
