@@ -1,5 +1,8 @@
 # DoBetterAsCode
 
+[![CircleCI](https://circleci.com/gh/DoBetterAsCode/DoBetterAsCode.svg?style=svg)](https://circleci.com/gh/DoBetterAsCode/DoBetterAsCode)
+
+
 A self-documenting repository/website demonstrating tools and practices for developing higher-quality "as code" with a fast feedback cycle.
 
 See it live at [DoBetterAsCode.com](https://dobetterascode.com).
@@ -20,7 +23,7 @@ The ".batect" folder contains Docker container defintions used for running tasks
 
 The ".circleci" folder contains our pipeline as code.
 
-## Tests
+## Test
 
 ### Validation
 The following local validation tasks may be run from batect:
