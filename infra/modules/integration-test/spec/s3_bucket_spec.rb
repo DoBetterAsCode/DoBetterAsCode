@@ -3,8 +3,7 @@ require 'aws-sdk'
 require 'json'
 require 'rhcl'
 
-state_file = 'terraform/s3_bucket/terraform.tfstate.d/kitchen-terraform-s3-bucket-aws/terraform.tfstate'
-tf_state = JSON.parse(File.open(state_file).read)
+tf_state = Helpers::State::load_state_for_module("s3_bucket")
 
 bucket_name = tf_state['modules'][0]['outputs']['bucket_name']['value']
 

@@ -3,8 +3,7 @@ require 'aws-sdk'
 require 'json'
 require 'rhcl'
 
-state_file = 'terraform/cloudfront_distribution/terraform.tfstate.d/kitchen-terraform-cloudfront-distribution-aws/terraform.tfstate'
-tf_state = JSON.parse(File.open(state_file).read)
+tf_state = Helpers::State::load_state_for_module("cloudfront_distribution")
 
 distribution_domain = tf_state['modules'][0]['outputs']['distribution_domain']['value']
 
