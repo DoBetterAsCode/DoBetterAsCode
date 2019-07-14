@@ -37,6 +37,11 @@ containers:
       - ./app:/code
       - ./app/public:/target
     working_directory: /code
+  circleci:
+    image: circleci/circleci-cli:alpine
+    volumes:
+      - ./:/code
+    working_directory: /code
 tasks:
   terraform-tflint:
     description: Run TFLint
@@ -114,3 +119,9 @@ tasks:
       working_directory: /code/app
       environment:
         ENVIRONMENT: ${ENVIRONMENT:-dev}
+  pipeline-validate:
+    description: Validate the pipeline with CircleCI CLI
+    group: pipeline
+    run:
+      container: circleci
+      command: config validate /code/.circleci/config.yml
