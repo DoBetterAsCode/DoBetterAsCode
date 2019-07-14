@@ -37,7 +37,7 @@ suites:
     driver:
       name: terraform
       root_module_directory: terraform/cloudfront_distribution
-      command_timeout: 1200
+      command_timeout: 1800
     verifier:
       patterns:
         - ./spec/cloudfront_distribution_spec.rb
