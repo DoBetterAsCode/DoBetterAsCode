@@ -44,6 +44,24 @@ module "distribution" {
   certificate_arn = "${module.certificate.arn}"
 }
 
+module "dns_record" {
+  source = "../../../route53_record"
+  zone_domain = "${local.base_domain}"
+  subdomain = "${substr(random_uuid.uuid.result, 0, 6)}"
+  cloudfront_domain_name = "${module.distribution.cloudfront_domain}"
+  cloudfront_hosted_zone_id = "${module.distribution.cloudfront_hosted_zone_id}"
+}
+
 output "distribution_domain" {
   value = "${module.distribution.cloudfront_domain}"
+}
+
+output "hosted_domain" {
+  value = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
+}
+
+resource "aws_s3_bucket_object" "test_page" {
+  bucket = "${module.bucket.name}"
+  key = "index.html"
+  content = "test"
 }
