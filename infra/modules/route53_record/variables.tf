@@ -10,11 +10,11 @@ variable "subdomain" {
 }
 
 variable "cloudfront_domain_name" {
-  description = "The domain name of the CloudFron distribution"
+  description = "The domain name of the CloudFront distribution"
   type        = "string"
 }
 
 variable "cloudfront_hosted_zone_id" {
-  description = "The hosted zone ID of the CloudFron distribution"
+  description = "The hosted zone ID of the CloudFront distribution"
   type        = "string"
 }
