@@ -3,6 +3,7 @@ provider "aws" {
 
   region = "ap-southeast-2"
 }
+
 resource "random_uuid" "uuid" {}
 
 data "aws_route53_zone" "domain" {
@@ -14,8 +15,8 @@ locals {
 }
 
 module "certificate" {
-  source = "../../../acm_certificate"
-  domain = "${random_uuid.uuid.result}.${local.base_domain}"
+  source  = "../../../acm_certificate"
+  domain  = "${random_uuid.uuid.result}.${local.base_domain}"
   zone_id = "${data.aws_route53_zone.domain.zone_id}"
 }
 

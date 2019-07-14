@@ -5,7 +5,7 @@ provider "aws" {
 }
 
 provider "aws" {
-  alias = "us-east-1"
+  alias   = "us-east-1"
   version = "~> 2.13.0"
 
   region = "us-east-1"
@@ -18,7 +18,7 @@ locals {
 resource "random_uuid" "uuid" {}
 
 module "bucket" {
-  source = "../../../s3_bucket"
+  source      = "../../../s3_bucket"
   bucket_name = "${substr(random_uuid.uuid.result, 0, 6)}"
 }
 
@@ -30,18 +30,20 @@ module "certificate" {
   providers = {
     aws = "aws.us-east-1"
   }
-  source = "../../../acm_certificate"
-  domain = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
+
+  source  = "../../../acm_certificate"
+  domain  = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
   zone_id = "${data.aws_route53_zone.domain.zone_id}"
 }
 
 module "distribution" {
-  source = "../../../cloudfront_distribution"
-  domain = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
-  bucket_name = "${module.bucket.name}"
-  bucket_domain = "${module.bucket.domain}"
+  source          = "../../../cloudfront_distribution"
+  domain          = "${substr(random_uuid.uuid.result, 0, 6)}.${local.base_domain}"
+  bucket_name     = "${module.bucket.name}"
+  bucket_domain   = "${module.bucket.domain}"
   certificate_arn = "${module.certificate.arn}"
 }
+
 output "distribution_domain" {
   value = "${module.distribution.cloudfront_domain}"
 }

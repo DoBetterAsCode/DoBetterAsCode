@@ -7,7 +7,7 @@ resource "aws_route53_record" "validation_record" {
 }
 
 resource "aws_acm_certificate_validation" "validation" {
-  count = "${var.skip_validation != "" ? 0 : 1}"
+  count                   = "${var.skip_validation != "" ? 0 : 1}"
   certificate_arn         = "${aws_acm_certificate.certificate.arn}"
   validation_record_fqdns = ["${aws_route53_record.validation_record.fqdn}"]
 }

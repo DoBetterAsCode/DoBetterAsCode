@@ -6,14 +6,15 @@ variable "zone_domain" {
 variable "subdomain" {
   description = "The subdomain for the Route53 zone"
   type        = "string"
+  default     = ""
 }
 
 variable "cloudfront_domain_name" {
   description = "The domain name of the CloudFron distribution"
-  type = "string"
+  type        = "string"
 }
 
 variable "cloudfront_hosted_zone_id" {
   description = "The hosted zone ID of the CloudFron distribution"
-  type = "string"
+  type        = "string"
 }

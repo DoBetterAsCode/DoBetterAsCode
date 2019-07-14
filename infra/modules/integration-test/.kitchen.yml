@@ -12,32 +12,32 @@ verifier:
   name: awspec
 
 suites:
-  - name: bucket
+  - name: s3_bucket
     driver:
       name: terraform
-      root_module_directory: terraform/bucket
+      root_module_directory: terraform/s3_bucket
     verifier:
       patterns:
-        - ./spec/bucket_spec.rb
-  - name: zone
+        - ./spec/s3_bucket_spec.rb
+  - name: route53_zone
     driver:
       name: terraform
-      root_module_directory: terraform/zone
+      root_module_directory: terraform/route53_zone
     verifier:
       patterns:
-        - ./spec/zone_spec.rb
-  - name: certificate
+        - ./spec/route53_zone_spec.rb
+  - name: acm_certificate
     driver:
       name: terraform
-      root_module_directory: terraform/certificate
+      root_module_directory: terraform/acm_certificate
     verifier:
       patterns:
-        - ./spec/certificate_spec.rb
-  - name: distribution
+        - ./spec/acm_certificate_spec.rb
+  - name: cloudfront_distribution
     driver:
       name: terraform
-      root_module_directory: terraform/distribution
+      root_module_directory: terraform/cloudfront_distribution
       command_timeout: 1200
     verifier:
       patterns:
-        - ./spec/distribution_spec.rb
+        - ./spec/cloudfront_distribution_spec.rb

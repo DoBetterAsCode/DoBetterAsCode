@@ -9,6 +9,6 @@ variable "zone_id" {
 }
 
 variable "skip_validation" {
-  type = "string"
+  type    = "string"
   default = ""
 }
