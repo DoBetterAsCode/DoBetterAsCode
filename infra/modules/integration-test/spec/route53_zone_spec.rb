@@ -3,8 +3,7 @@ require 'aws-sdk'
 require 'json'
 require 'rhcl'
 
-state_file = 'terraform/route53_zone/terraform.tfstate.d/kitchen-terraform-route53-zone-aws/terraform.tfstate'
-tf_state = JSON.parse(File.open(state_file).read)
+tf_state = Helpers::State::load_state_for_module("route53_zone")
 
 zone_name = tf_state['modules'][0]['outputs']['zone_name']['value']
 

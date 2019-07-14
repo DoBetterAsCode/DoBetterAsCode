@@ -3,8 +3,7 @@ require 'aws-sdk'
 require 'json'
 require 'rhcl'
 
-state_file = 'terraform/acm_certificate/terraform.tfstate.d/kitchen-terraform-acm-certificate-aws/terraform.tfstate'
-tf_state = JSON.parse(File.open(state_file).read)
+tf_state = Helpers::State::load_state_for_module("acm_certificate")
 
 certificate_name = tf_state['modules'][0]['outputs']['certificate_name']['value']
 
