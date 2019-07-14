@@ -1,0 +1,13 @@
+actions:
+    pipeline-validate:
+        run: ./batect pipeline-validate
+        include: .circleci/*
+    terraform-tflint:
+        run: ./batect terraform-tflint
+        include: "*.tf"
+    yaml-lint:
+        run: ./batect yaml-lint -- {files}
+        include: "*.yml"
+    shell-lint:
+        run: ./batect shell-lint -- {files}
+        include: "*.sh"

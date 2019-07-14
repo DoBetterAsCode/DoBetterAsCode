@@ -47,6 +47,11 @@ containers:
     volumes:
       - ./:/code
     working_directory: /code
+  shellcheck:
+    image: koalaman/shellcheck:stable
+    volumes:
+      - ./:/code
+    working_directory: /code
 tasks:
   terraform-tflint:
     description: Run TFLint
@@ -132,7 +137,13 @@ tasks:
       command: config validate /code/.circleci/config.yml
   yaml-lint:
     description: Lint YAML files
-    group: Lint
+    group: lint
     run:
       container: yamllint
       command: -c .yamllint.yml
+  shell-lint:
+    description: Lint bash files
+    group: lint
+    run:
+      container: shellcheck
+      command: -S info
