@@ -30,7 +30,7 @@ containers:
     working_directory: /code
     environment:
       AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY   
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   hugo:
     image: klakegg/hugo:0.55.6-ext
     volumes:
@@ -39,6 +39,11 @@ containers:
     working_directory: /code
   circleci:
     image: circleci/circleci-cli:alpine
+    volumes:
+      - ./:/code
+    working_directory: /code
+  yamllint:
+    image: giantswarm/yamllint
     volumes:
       - ./:/code
     working_directory: /code
@@ -125,3 +130,9 @@ tasks:
     run:
       container: circleci
       command: config validate /code/.circleci/config.yml
+  yaml-lint:
+    description: Lint YAML files
+    group: Lint
+    run:
+      container: yamllint
+      command: -c .yamllint.yml
