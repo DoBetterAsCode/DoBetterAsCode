@@ -6,13 +6,9 @@ levels:
   - Integration
 clouds:
   - AWS
-  - Azure
-languages:
-  - Terraform
-  - CloudFormation
 links:
-  - name: Website
-    url: https://www.inspec.io/
+  - name: GitHub
+    url: https://github.com/k1LoW/awspec
 ---
 
-Verify provisioning to cloud providers
+RSpec tests for your AWS resources.
