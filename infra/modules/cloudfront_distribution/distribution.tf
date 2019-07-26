@@ -34,6 +34,8 @@ resource "aws_cloudfront_distribution" "distribution" {
 
     compress               = true
     viewer_protocol_policy = "redirect-to-https"
+
+    default_ttl = 300
   }
 
   viewer_certificate {
