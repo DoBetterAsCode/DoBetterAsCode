@@ -1,0 +1,14 @@
+---
+title: 'bats'
+types:
+  - Validation
+levels:
+  - Local
+languages:
+  - shell
+links:
+  - name: Github
+    url: https://github.com/sstephenson/bats
+---
+
+Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.
