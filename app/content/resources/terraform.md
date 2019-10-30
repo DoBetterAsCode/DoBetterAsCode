@@ -1,7 +1,7 @@
 ---
 title: 'Terraform'
 types:
-  - Tool
+  - Tool/Infra
 languages:
   - HashiCorp Configuration Language
 clouds:

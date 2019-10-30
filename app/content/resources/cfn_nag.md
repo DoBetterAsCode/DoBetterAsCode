@@ -5,6 +5,7 @@ levels:
 types:
   - Infrastructure
   - Validation
+  - Tool/CI
 clouds:
   - AWS
 languages:

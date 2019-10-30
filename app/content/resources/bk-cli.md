@@ -4,6 +4,7 @@ levels:
   - Local
 types:
   - Pipeline
+  - Tool/CI
 links:
   - name: Github
     url: https://github.com/buildkite/cli

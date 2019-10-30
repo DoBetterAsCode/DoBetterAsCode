@@ -1,7 +1,7 @@
 ---
 title: 'AWS CDK'
 types:
-  - Tool
+  - Tool/Infra
 languages:
   - Javascript
   - Typescript

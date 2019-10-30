@@ -1,7 +1,7 @@
 ---
 title: 'Pulumi'
 types:
-  - Tool
+  - Tool/Infra
 languages:
   - Javascript
   - Typescript
