@@ -4,6 +4,7 @@ types:
   - Pipeline
 levels:
   - Local
+  - Tool/CI
 links:
   - name: Website
     url: https://codefresh.io/docs/docs/configure-ci-cd-pipeline/running-pipelines-locally/

@@ -4,6 +4,7 @@ levels:
   - Local
 types:
   - Pipeline
+  - Tool/CI
 links:
   - name: Website
     url: https://circleci.com/docs/2.0/local-cli/
