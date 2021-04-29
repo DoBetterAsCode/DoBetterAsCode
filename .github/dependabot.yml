@@ -1,0 +1,32 @@
+version: 2
+updates:
+- package-ecosystem: terraform
+  directory: "/infra/project"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/infra/modules/acm_certificate"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/infra/modules/cloudfront_distribution"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/infra/modules/route53_record"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/infra/modules/route53_zone"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+- package-ecosystem: terraform
+  directory: "/infra/modules/s3_bucket"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
